@@ -19,7 +19,7 @@ jobs:
         dotnet-version: '9.0'  # or your required version
 
     - name: Publish .NET app
-      run: dotnet publish -c Release -o ./publish
+      run: dotnet publish BlazorVercel/BlazorVercel.csproj -c Release -o ./publish
 
     - name: Install Vercel CLI
       run: npm install -g vercel
