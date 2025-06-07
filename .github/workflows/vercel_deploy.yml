@@ -22,8 +22,19 @@ jobs:
       with:
         dotnet-version: '9.0'
 
-    - name: Publish .NET app
-      run: dotnet publish BlazorVercel/BlazorVercel.csproj -c Release -o ./publish
+    - name: Publish Blazor app
+      run: |
+        dotnet publish BlazorVercel/BlazorVercel.csproj -c Release -o ./temp-publish
+        mkdir -p .vercel/output/static
+        cp -r ./temp-publish/wwwroot/* .vercel/output/static/
+
+        # Generate config.json for static output
+        echo '{
+        "version": 3,
+        "routes": [
+            { "src": "/(.*)", "dest": "/index.html" }
+        ]
+        }' > .vercel/output/config.json
 
     - name: Install Vercel CLI
       run: npm install -g vercel
