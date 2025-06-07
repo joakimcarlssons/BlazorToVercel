@@ -28,13 +28,7 @@ jobs:
 
         mkdir -p .vercel/output/static
 
-        # Ensure there are files to copy, then copy them safely
-        if [ -d "./temp-publish/wwwroot" ]; then
-            cp -r ./temp-publish/wwwroot/. .vercel/output/static/
-        else
-            echo "ERROR: ./temp-publish/wwwroot does not exist"
-            exit 1
-        fi
+        cp -a ./temp-publish/wwwroot/. .vercel/output/static/
 
         # Write Vercel config
         cat <<EOF > .vercel/output/config.json
