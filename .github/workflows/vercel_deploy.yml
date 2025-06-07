@@ -2,7 +2,7 @@ name: Build and Deploy .NET to Vercel
 
 env:
     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-    VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    VERCEL_PROJECT_ID: prj_V9D2gLRxoovHfQR3NfUk10fOwDzD
 
 on:
   push:
