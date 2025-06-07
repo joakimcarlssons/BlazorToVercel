@@ -20,7 +20,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0'  # or your required version
+        dotnet-version: '9.0'
 
     - name: Publish .NET app
       run: dotnet publish BlazorVercel/BlazorVercel.csproj -c Release -o ./publish
