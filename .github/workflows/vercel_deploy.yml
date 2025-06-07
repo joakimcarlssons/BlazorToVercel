@@ -25,16 +25,27 @@ jobs:
     - name: Publish Blazor app
       run: |
         dotnet publish BlazorVercel/BlazorVercel.csproj -c Release -o ./temp-publish
-        mkdir -p .vercel/output/static
-        cp -r ./temp-publish/wwwroot/* .vercel/output/static/
 
-        # Generate config.json for static output
-        echo '{
-        "version": 3,
-        "routes": [
-            { "src": "/(.*)", "dest": "/index.html" }
+        mkdir -p .vercel/output/static
+
+        # Ensure there are files to copy, then copy them safely
+        if [ -d "./temp-publish/wwwroot" ]; then
+            cp -r ./temp-publish/wwwroot/. .vercel/output/static/
+        else
+            echo "ERROR: ./temp-publish/wwwroot does not exist"
+            exit 1
+        fi
+
+        # Write Vercel config
+        cat <<EOF > .vercel/output/config.json
+        {
+            "version": 3,
+            "routes": [
+                { "src": "/(.*)", "dest": "/index.html" }
         ]
-        }' > .vercel/output/config.json
+        }
+        EOF
+
 
     - name: Install Vercel CLI
       run: npm install -g vercel
